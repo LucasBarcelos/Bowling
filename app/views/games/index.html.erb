@@ -1,0 +1,31 @@
+<h1>Listing Games</h1>
+
+<table border="1" cellspacing=0 cellpadding=5>
+  <thead>
+      <tr>
+        <th>ID</th>
+        <th>Rolls</th>
+        <th>Score</th>
+        <th>Show</th>
+        <th>Edit</th>
+        <th>Destroy</th>
+      </tr>
+  </thead>
+
+  <tbody>
+    <% @games.each do |game| %>
+      <tr>
+        <td><%= game.id %></td>
+        <td><%= game.rolls %></td>
+        <td><%= game.score %></td>
+        <td><%= link_to 'Show', game %></td>
+        <td><%= link_to 'Edit', edit_game_path(game) %></td>
+        <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+</table>    
+
+
+<br>
+
+<%= link_to 'New Game', new_game_path %>
