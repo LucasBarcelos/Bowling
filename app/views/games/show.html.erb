@@ -5,7 +5,16 @@
     <%= @game.id %>
     </p>
     <strong>Rolls:</strong>
-    <%= @game.rolls %>
+    <% frames = @game.frames %>
+    <table id="frames">
+        <% frames.each do |frame| %>
+            <td>
+                <label><%= "Frame #{frames.index(frame) + 1}"  %></label>
+                <div id="first_roll"><%= frame.first_roll %></div>
+                <div id="second_roll"><%= frame.second_roll %></div>
+            </td>
+        <% end %>
+    </table>
     <p>
     <strong>Score:</strong>
     <%= @game.score %>

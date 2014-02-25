@@ -1,14 +1,19 @@
 class Game < ActiveRecord::Base
 
-  def roll (pins)
-    @rolls_array[@current_roll] = pins
-    @current_roll += 1
+  def roll(pins)
+    self.rolls ||= ""
+    self.rolls += ', ' unless self.rolls.blank?
+    self.rolls += pins.to_s
+  end
+
+  def frames
+    frames = []
+    arr = rolls.split(',').map(&:to_i).in_groups_of 2
+    arr.each {|frame| frames << Frame.new(frame[0], frame[1])}
+    frames
   end
 
   def score
-    puts rolls
-
-
     @rolls_array = rolls.split(',').map(&:to_i)
     @current_roll = 0
 
@@ -41,10 +46,10 @@ class Game < ActiveRecord::Base
   end
 
   def spare_bonus(index)
-    @rolls_array[index]
+    @rolls_array[index + 2]
   end
 
   def strike_bonus(index)
-    @rolls_array[index] + @rolls_array[index + 1]
+    @rolls_array[index + 1] + @rolls_array[index + 2]
   end
 end
